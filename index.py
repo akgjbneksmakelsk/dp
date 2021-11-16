@@ -89,7 +89,7 @@ threading.Thread(target=proxyreloader).start()
 
 def thread_starter():
     threading.Thread(target=gettargets).start()
-    for _ in range(100):
+    for _ in range(10000):
         threading.Thread(target=requester).start()
 
 threading.Thread(target=thread_starter).start()
