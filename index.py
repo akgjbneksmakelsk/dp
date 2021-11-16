@@ -37,7 +37,7 @@ def requester():
         if targets[0] == "0":time.sleep(5);continue
         target = random.choice(targets).replace("%random%",randomstr()).replace("%rand%",randomstr()).replace("%randint%",randomint()).replace("%randnum%",randomint())
         proxy = random.choice(proxylist)
-        if proxy == "":print(proxy);time.sleep(5);continue
+        if proxy == "":time.sleep(5);continue
         s = cfscrape.create_scraper()
         try:
             useragent = random.choice(useragents)
