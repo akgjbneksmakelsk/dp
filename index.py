@@ -57,6 +57,7 @@ def requester():
                 s.patch(target,timeout=1,proxies={"http":proxy,"https":proxy},verify=False)
             if rdn == 7:
                 s.delete(target,timeout=1,proxies={"http":proxy,"https":proxy},verify=False)
+            print("ok - "+proxy)
         except:pass
 
 def gettargets():
